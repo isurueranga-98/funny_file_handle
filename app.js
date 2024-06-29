@@ -23,7 +23,12 @@ const fs = require("fs/promises");
       await fs.unlink(path);
       console.log(`Deleted the file "${path}"`);
     } catch (err) {
-      console.error(`Error deleting the file "${path}":`, err);
+      if(err.code === "ENOENT"){
+        console.log("No file at this path to remove.")
+      }else{
+        console.log("An error occurred while removing the file");
+        console.log(err);
+      }
     }
   };
 
