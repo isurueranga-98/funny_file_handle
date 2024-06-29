@@ -37,7 +37,12 @@ const fs = require("fs/promises");
       await fs.rename(oldPath, newPath);
       console.log(`Renamed file from "${oldPath}" to "${newPath}"`);
     } catch (err) {
-      console.error(`Error renaming file:`, err);
+      if(err.code === "ENOENT"){
+        console.log("No file at this path to rename.")
+      }else{
+        console.log("An error occurred while renaming the file");
+        console.log(err);
+      }
     }
   };
 
